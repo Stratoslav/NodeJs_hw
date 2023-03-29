@@ -14,16 +14,18 @@ const {
   updateContactController,
   updateFavoriteContactsController,
 } = require("../contacts.controller");
+const checkAuthMiddleware = require("../middlewares/auth.middleware");
 const contactsSchema = require("../schema/contactsSchema");
 
 const contactsRouter = express.Router();
 
-contactsRouter.get("/contacts", getContactsController);
+contactsRouter.get("/contacts", checkAuthMiddleware, getContactsController);
 contactsRouter.get("/contacts/:id", getContactsByIdController);
 contactsRouter.delete("/contacts/:id", deleteContactController);
 contactsRouter.post("/contacts", addNewContactsController);
 contactsRouter.patch("/contacts/:id", updateContactController);
 contactsRouter.get("/favorite", updateFavoriteContactsController);
+
 // contactsRouter.get("/contacts", async (req, res) => {
 //   const contacts = await listContacts();
 //   res.status(200).json(contacts);

@@ -16,6 +16,10 @@ const contactsSchema = mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  password: {
+    type: String,
+    require: true,
+  },
 });
 
 class Contacts {
@@ -24,6 +28,9 @@ class Contacts {
   }
   getUser = async () => {
     return await this.db.find();
+  };
+  getContacts = async (query) => {
+    return await this.db.findOne(query);
   };
   getFavoriteContacts = async () => {
     return await this.db.find();
@@ -35,7 +42,6 @@ class Contacts {
     return await this.db.findByIdAndRemove(id);
   };
   addContact = async (data) => {
-    console.log(data);
     return await this.db.create(data);
   };
   updateContact = async (id, data) => {
